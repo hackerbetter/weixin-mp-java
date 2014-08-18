@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.Setter;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.hamster.weixinmp.config.WxConfig;
@@ -51,7 +52,9 @@ import org.hamster.weixinmp.dao.repository.resp.WxRespVoiceDao;
 import org.hamster.weixinmp.dao.repository.user.WxGroupDao;
 import org.hamster.weixinmp.dao.repository.user.WxUserDao;
 import org.hamster.weixinmp.dao.repository.msg.WxMsgCustomDao;
+import org.hamster.weixinmp.model.oauth.WxOAuthTokenJson;
 import org.hamster.weixinmp.model.send.base.AbstractCustomSendJson;
+import org.hamster.weixinmp.model.user.WxUserInfoJson;
 import org.hamster.weixinmp.util.WxUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,5 +277,59 @@ public class WxStorageService {
 		}
 		return respMusic;
 	}
+    public WxUserEntity saveOrUpdateUser(WxOAuthTokenJson json) {
+        if (userDao == null) {
+            WxUserEntity entity = new WxUserEntity();
+            entity.setOpenId(json.getOpenid());
+            entity.setOauthAccessToken(json.getAccess_token());
+            entity.setOauthExpiresIn(json.getExpires_in());
+            entity.setOauthRefreshToken(json.getRefresh_token());
+            entity.setOauthScope(json.getScope());
+            entity.setOauthCreateTime(System.currentTimeMillis());
+            return entity;
+        }
 
+        WxUserEntity entity = userDao.findByOpenId(json.getOpenid());
+        if (entity == null) {
+            entity = new WxUserEntity();
+        }
+        entity.setOpenId(json.getOpenid());
+        entity.setOauthAccessToken(json.getAccess_token());
+        entity.setOauthExpiresIn(json.getExpires_in());
+        entity.setOauthRefreshToken(json.getRefresh_token());
+        entity.setOauthScope(json.getScope());
+        entity.setOauthCreateTime(System.currentTimeMillis());
+        userDao.save(entity);
+        return entity;
+    }
+
+    public WxUserEntity saveOrUpdateUser(WxUserInfoJson json) {
+        if (userDao == null) {
+            WxUserEntity entity = new WxUserEntity();
+            entity.setOpenId(json.getOpenid());
+            entity.setCity(json.getCity());
+            entity.setCountry(json.getCountry());
+            entity.setHeadImgUrl(json.getHeadimgurl());
+            entity.setNickName(json.getNickname());
+            entity.setProvince(json.getProvince());
+            entity.setPrivileges(StringUtils.join(json.getPrivilege(), ","));
+            entity.setSex(json.getSex());
+            return entity;
+        }
+
+        WxUserEntity entity = userDao.findByOpenId(json.getOpenid());
+        if (entity == null) {
+            entity = new WxUserEntity();
+        }
+        entity.setOpenId(json.getOpenid());
+        entity.setCity(json.getCity());
+        entity.setCountry(json.getCountry());
+        entity.setHeadImgUrl(json.getHeadimgurl());
+        entity.setNickName(json.getNickname());
+        entity.setProvince(json.getProvince());
+        entity.setPrivileges(StringUtils.join(json.getPrivilege(), ","));
+        entity.setSex(json.getSex());
+        userDao.save(entity);
+        return entity;
+    }
 }
