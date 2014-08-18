@@ -1,4 +1,7 @@
 target/
+.project
+.settings/
+.classpath
 idea/
 logs/
 weixin-mp.iml
