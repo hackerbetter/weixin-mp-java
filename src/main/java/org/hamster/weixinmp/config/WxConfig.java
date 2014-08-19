@@ -26,7 +26,7 @@ public class WxConfig {
 	public static final String USER_SYSTEM     = "System";
 	
     private @Value("#{wxProperties.app_download_url}") String appUrl;
-
+    private @Value("#{wxProperties.unionLoginCenterUrl}") String unionLoginCenterUrl;
 	private @Value("#{wxProperties.wx_token}") String token;
 	private @Value("#{wxProperties.wx_appid}") String appid;
 	private @Value("#{wxProperties.wx_appsecret}") String appsecret;
@@ -41,7 +41,7 @@ public class WxConfig {
 
 	private @Value("#{wxProperties.wx_media_upload_url}") String mediaUploadUrl;
 	private @Value("#{wxProperties.wx_media_download_url}") String mediaDownloadUrl;
-	
+
 	private @Value("#{wxProperties.wx_qrcode_create_url}") String qrcodeCreateUrl;
 	
 	private @Value("#{wxProperties.wx_user_info_url}") String userInfoUrl;

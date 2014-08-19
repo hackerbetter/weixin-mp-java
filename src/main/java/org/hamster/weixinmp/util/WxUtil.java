@@ -126,15 +126,4 @@ public class WxUtil {
 		return result;
 	}
 
-    public static WxRespTextEntity sendText(String fromUserName, String toUserName,String content){
-        WxRespTextEntity result = new WxRespTextEntity();
-        result.setContent(content);
-        result.setCreatedDate(new Date());
-        result.setCreateTime(new Date().getTime() / 1000);
-        result.setFromUserName(fromUserName);
-        result.setMsgType(WxMsgRespType.TEXT);
-        result.setToUserName(toUserName);
-        return result;
-    }
-
 }

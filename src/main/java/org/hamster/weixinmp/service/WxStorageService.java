@@ -136,6 +136,7 @@ public class WxStorageService {
 	@Autowired(required = false)
 	protected WxConfig wxConfig;
 
+
 	public WxMsgTextEntity saveMsgText(Element ele) throws DocumentException {
 		WxMsgTextEntity msgText = WxXmlUtil.getMsgText(ele);
 		if (msgTextDao != null) {

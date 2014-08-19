@@ -61,7 +61,14 @@
         <servlet-name>springMVC</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
+    <!-- servlet -->
+    <servlet>
+        <servlet-name>systemServlet</servlet-name>
+        <servlet-class>
+            org.hamster.weixinmp.servlet.SystemServlet
+        </servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>

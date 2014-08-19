@@ -3,12 +3,16 @@
  */
 package org.hamster.weixinmp.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.DocumentException;
+import org.hamster.weixinmp.constant.Response;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
 import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
+import org.hamster.weixinmp.dao.entity.user.WxUserEntity;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.service.WxAuthService;
 import org.hamster.weixinmp.service.WxMessageService;
+import org.hamster.weixinmp.service.WxUserOAuthService;
 import org.hamster.weixinmp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +41,23 @@ public class WxController {
 	private WxAuthService authService;
 	@Autowired
 	private WxMessageService messageService;
+    @Autowired
+    private WxUserOAuthService wxUserOAuthService;
 
-    @RequestMapping("/test")
-    public @ResponseBody String test(){
-        return "hello world";
+    @RequestMapping(value="/getOpenId",method = RequestMethod.GET)
+    public @ResponseBody Response getOpenId(@RequestParam("code") String code){
+        try {
+            log.info("微信授权登录根据code:{}获取openid",code);
+            if(StringUtils.isBlank(code)){
+                log.info("微信授权获取openid 参数错误");
+                return Response.paramError();
+            }
+            WxUserEntity wxUserEntity=wxUserOAuthService.fetchAccessTokenByCode(code);
+            return Response.success(wxUserEntity.getOpenId());
+        } catch (WxException e) {
+            log.error("微信授权登录获取openid",e);
+            return Response.error(e.getError());
+        }
     }
 
 	@RequestMapping(method = {RequestMethod.GET})

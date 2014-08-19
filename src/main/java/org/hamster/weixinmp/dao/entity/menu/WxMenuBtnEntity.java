@@ -37,29 +37,24 @@ import com.google.gson.annotations.SerializedName;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class WxMenuBtnEntity extends WxBaseEntity {
-	@Column(name = "key_", length = 128, nullable = false)
+	@Column(name = "`key`", length = 128, nullable = true)
 	private String key;
-	@Column(name = "url", length = 256, nullable = false)
+	@Column(name = "url", length = 256, nullable = true)
 	private String url;
 	@Column(name = "name", length = 80, nullable = false)
 	private String name;
-	@Column(name = "type", length = WxConfig.COL_LEN_INDICATOR, nullable = false)
+	@Column(name = "type", length = WxConfig.COL_LEN_INDICATOR, nullable = true)
 	private String type;
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "parent_button_id")
+	@ManyToOne
+	@JoinColumn(name = "parent_id")
 	@Expose(serialize = false, deserialize = false)
 	private WxMenuBtnEntity parentButton;
-	@OneToMany(mappedBy = "parentButton")
 	@SerializedName("sub_button")
+	@OneToMany(mappedBy = "parentButton",cascade = {CascadeType.ALL})
 	private List<WxMenuBtnEntity> sub_button;
 
     public WxMenuBtnEntity(String name) {
         this.name = name;
-    }
-
-    public WxMenuBtnEntity(String name, String key) {
-        this.name = name;
-        this.key = key;
     }
 
     public WxMenuBtnEntity(String type, String name, String key) {

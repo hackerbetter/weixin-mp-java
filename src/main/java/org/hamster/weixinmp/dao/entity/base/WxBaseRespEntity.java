@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Date;
+
 /**
  * @author grossopaforever@gmail.com
  * @version Jul 28, 2013
@@ -29,7 +31,7 @@ public abstract class WxBaseRespEntity extends WxBaseEntity {
 	@Column(name = "from_user_name", length = WxConfig.COL_LEN_USER_NAME, nullable = false)
 	protected String fromUserName;
 	@Column(name = "create_time", nullable = false)
-	protected Long createTime;
+	protected Long createTime=new Date().getTime() / 1000;
 	@Column(name = "msg_type", length = WxConfig.COL_LEN_INDICATOR, nullable = false)
 	protected String msgType;
 }

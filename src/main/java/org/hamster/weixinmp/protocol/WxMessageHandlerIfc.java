@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hamster.weixinmp.service.handler;
+package org.hamster.weixinmp.protocol;
 
 import java.util.Map;
 

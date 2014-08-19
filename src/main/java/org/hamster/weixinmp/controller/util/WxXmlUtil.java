@@ -416,7 +416,7 @@ public class WxXmlUtil {
 			itemEle.addElement("Title").addCDATA(item.getTitle());
 			itemEle.addElement("Description").addCDATA(item.getDescription());
 			itemEle.addElement("PicUrl").addCDATA(item.getPicUrl());
-			itemEle.addElement("HQMusicUrl").addCDATA(item.getUrl());
+			itemEle.addElement("Url").addCDATA(item.getUrl());
 		}
 		return ele;
 	}

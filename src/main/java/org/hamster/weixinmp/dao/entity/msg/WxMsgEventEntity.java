@@ -35,6 +35,6 @@ public class WxMsgEventEntity extends WxBaseMsgEntity {
 	private Double latitude;
 	@Column(name = "longitude", nullable = true)
 	private Double longitude;
-	@Column(name = "precision", nullable = true)
+	@Column(name = "`precision`", nullable = true)
 	private Double precision;
 }

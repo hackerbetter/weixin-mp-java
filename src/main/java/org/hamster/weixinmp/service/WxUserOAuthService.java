@@ -15,6 +15,8 @@ import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.model.oauth.WxOAuthTokenJson;
 import org.hamster.weixinmp.model.user.WxUserInfoJson;
 import org.hamster.weixinmp.util.WxUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ import com.google.api.client.util.Maps;
  */
 @Service
 public class WxUserOAuthService {
+    private Logger logger = LoggerFactory.getLogger(WxUserOAuthService.class);
     @Autowired
     WxConfig config;
 
@@ -59,7 +62,7 @@ public class WxUserOAuthService {
      * @param state
      * @throws IOException
      */
-    public void getCodeUrl(Scope scope, String redirectUri, String state) throws IOException {
+    public URIBuilder getCodeUrl(Scope scope, String redirectUri, String state) throws IOException {
         try {
             URIBuilder builder = new URIBuilder(config.getUserOAuthUrl());
             builder.addParameter("appid", config.getAppid()).addParameter("redirect_uri", redirectUri)
@@ -68,9 +71,10 @@ public class WxUserOAuthService {
                 builder.addParameter("state", state);
             }
             builder.setFragment("wechat_redirect");
+            return builder;
         } catch (URISyntaxException e) {
-            // never happens
-            e.printStackTrace();
+            logger.error("用户同意授权，获取code",e);
+            return null;
         }
     }
 
@@ -99,7 +103,7 @@ public class WxUserOAuthService {
     public WxUserEntity fetchAccessTokenByCode(String code) throws WxException {
         Map<String, String> params = Maps.newHashMap();
         params.put("appid", config.getAppid());
-        params.put("appsecret", config.getAppsecret());
+        params.put("secret", config.getAppsecret());
         params.put("code", code);
         params.put("grant_type", "authorization_code");
         WxOAuthTokenJson json = WxUtil.sendRequest(config.getUserOAuthAccessTokenUrl(), HttpMethod.GET, params, null,
@@ -135,7 +139,7 @@ public class WxUserOAuthService {
      * 
      * 如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。<br>
      * 
-     * @param access_token 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
+     * @param accessToken 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
      * @param openid 用户的唯一标识
      * @param lang 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
      * @return
@@ -144,7 +148,7 @@ public class WxUserOAuthService {
     public WxUserEntity getUserInfo(String accessToken, String openid, String lang) throws WxException {
         Map<String, String> params = Maps.newHashMap();
         params.put("appid", config.getAppid());
-        params.put("accessToken", accessToken);
+        params.put("access_token", accessToken);
         params.put("openid", openid);
         params.put("lang", lang);
         WxUserInfoJson json = WxUtil.sendRequest(config.getUserOAuthUserInfoUrl(), HttpMethod.GET, params, null,

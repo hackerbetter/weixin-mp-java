@@ -12,9 +12,8 @@
 	default-lazy-init="true">
 
 	<description>WX Service Configration</description>
-
+    <context:property-placeholder location="classpath*:/*.properties"/>
     <util:properties id="wxProperties" location="classpath:/wx.properties" />
-    <util:properties id="errorCodeProperties" location="classpath:/errorCode.properties" />
 
     <context:annotation-config />
     <context:component-scan base-package="org.hamster.weixinmp" />
@@ -41,9 +40,9 @@
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
             </props>
         </property>
     </bean>
