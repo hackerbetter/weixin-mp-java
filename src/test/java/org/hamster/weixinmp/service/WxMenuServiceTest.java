@@ -1,21 +1,15 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.service;
+package org.hamster.weixinmp.service;
 
 import org.hamster.weixinmp.dao.entity.menu.WxMenuBtnEntity;
 import org.hamster.weixinmp.dao.repository.menu.WxMenuBtnDao;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.model.menu.WxMenuCreateJson;
-import org.hamster.weixinmp.service.WxAuthService;
-import org.hamster.weixinmp.service.WxMenuService;
-import org.hamster.weixinmp.test.base.AbstractWxServiceTest;
+import org.hamster.weixinmp.base.AbstractWxServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.google.gson.Gson;
-
-import java.util.List;
 
 /**
  * @author grossopaforever@gmail.com
@@ -38,7 +32,7 @@ public class WxMenuServiceTest extends AbstractWxServiceTest {
                                 .addSubButton(new WxMenuBtnEntity("view", "购彩大厅","http://testiphone.boyacai.com/index.html?r=wx",null))
                                 .addSubButton(new WxMenuBtnEntity("view", "合买大厅","http://testiphone.boyacai.com/html/tog.html?r=wx", null))
                                 .addSubButton(new WxMenuBtnEntity("view", "彩票推荐","http://testiphone.boyacai.com/html/more/newslist.html?r=wx", null))
-                                .addSubButton(new WxMenuBtnEntity("click","客户端下载", "appdownload"))
+                                .addSubButton(new WxMenuBtnEntity("view","客户端下载", "http://testiphone.boyacai.com/html/common/download.html",null))
                 ).addButton(
                 new WxMenuBtnEntity("账户资金")
                         .addSubButton(new WxMenuBtnEntity("view","账户提现","http://testiphone.boyacai.com/html/user/withdraw.html?r=wx",null))
@@ -47,14 +41,17 @@ public class WxMenuServiceTest extends AbstractWxServiceTest {
         ).addButton(
                 new WxMenuBtnEntity("我的彩票")
                         .addSubButton(new WxMenuBtnEntity("view", "中奖查询","http://testiphone.boyacai.com/html/user/lotterylist.html?r=wx", null))
-                        .addSubButton(new WxMenuBtnEntity("view", "开奖公告","http://testiphone.boyacai.com/html/lottery.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "开奖公告", "http://testiphone.boyacai.com/html/lottery.html?r=wx", null))
                         .addSubButton(new WxMenuBtnEntity("view", "投注记录","http://testiphone.boyacai.com/html/user/cathecticlist.html?r=wx", null))
-                        .addSubButton(new WxMenuBtnEntity("view", "优惠活动","http://testiphone.boyacai.com/html/more/active.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "优惠活动", "http://testiphone.boyacai.com/html/more/active.html?r=wx", null))
         );
 
 		menuService.menuCreate(accessToken,menu);//菜单创建
 		System.out.println(menuService.menuGet(accessToken));//菜单查询
         for(WxMenuBtnEntity button:menu.getButton()){
+            for(WxMenuBtnEntity subButton:button.getSub_buttons()){
+                subButton.setParentButton(button);
+            }
             menuBtnDao.save(button);
         }
 //		menuService.menuDelete(accessToken);//菜单清空

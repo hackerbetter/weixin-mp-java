@@ -18,13 +18,10 @@ import org.hamster.weixinmp.model.send.item.SendItemVoiceJson;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendVoiceJson extends AbstractCustomSendJson {
-    
-    @Override
-    public String getMsgtype() {
-        return "voice";
+    public SendVoiceJson(){
+        this.setMsgtype("voice");
     }
 	private SendItemVoiceJson voice;
 }

@@ -1,17 +1,11 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.base;
+package org.hamster.weixinmp.base;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.dao.entity.auth.WxAuth;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.service.WxAuthService;
@@ -26,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractWxServiceTest extends AbstractServiceTest {
 
 	protected String accessToken;
-	
-	@Autowired
-	WxConfig config;
-	
+
 	@Autowired
 	WxAuthService authService;
 	
@@ -38,7 +29,7 @@ public abstract class AbstractWxServiceTest extends AbstractServiceTest {
 		if (StringUtils.isNotBlank(accessToken)) {
 		    return;
         }
-        WxAuth auth = authService.getAccessToken(config.getAppid(), config.getAppsecret());
+        WxAuth auth = authService.getAccessToken();
         this.accessToken = auth.getAccessToken();
 	}
 }

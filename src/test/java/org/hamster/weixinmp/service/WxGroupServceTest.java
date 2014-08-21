@@ -1,15 +1,13 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.service;
+package org.hamster.weixinmp.service;
 
 import java.util.List;
 
 import org.hamster.weixinmp.dao.entity.user.WxGroupEntity;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.service.WxAuthService;
-import org.hamster.weixinmp.service.WxUserGroupService;
-import org.hamster.weixinmp.test.base.AbstractWxServiceTest;
+import org.hamster.weixinmp.base.AbstractWxServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

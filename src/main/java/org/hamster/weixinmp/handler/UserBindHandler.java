@@ -1,6 +1,6 @@
 package org.hamster.weixinmp.handler;
 
-import com.google.api.client.util.Maps;
+import com.google.common.collect.Maps;
 import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.constant.WxMsgRespType;
 import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;

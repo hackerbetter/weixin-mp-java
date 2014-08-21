@@ -18,12 +18,10 @@ import org.hamster.weixinmp.model.send.item.wrapper.WxSendItemArticleWrapper;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendItemPicDescJson extends AbstractCustomSendJson {
-    @Override
-    public String getMsgtype() {
-        return "news";
+    public SendItemPicDescJson(){
+        this.setMsgtype("news");
     }
 	private WxSendItemArticleWrapper news;
 }

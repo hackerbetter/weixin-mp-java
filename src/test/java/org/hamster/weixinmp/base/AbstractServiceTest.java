@@ -1,4 +1,4 @@
-package org.hamster.weixinmp.test.base;
+package org.hamster.weixinmp.base;
 
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;

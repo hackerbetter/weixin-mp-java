@@ -21,7 +21,7 @@ import org.hamster.weixinmp.dao.entity.base.WxBaseItemMediaEntity;
  * 
  */
 @Entity
-@Table(name=WxConfig.TABLE_PREFIX + "wx_item_pic_desc")
+@Table(name=WxConfig.TABLE_PREFIX + "item_pic_desc")
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -34,4 +34,5 @@ public class WxItemPicDescEntity extends WxBaseItemMediaEntity {
 	private String picUrl;
 	@Column(name="url", length = WxConfig.COL_LEN_URL, nullable = false)
 	private String url;
+
 }

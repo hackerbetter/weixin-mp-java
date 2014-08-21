@@ -82,7 +82,7 @@ public class WxMessageService {
 		return null;
 	}
 	
-	public WxBaseRespEntity handleMessage(WxBaseMsgEntity msg) {
+	public WxBaseRespEntity handleMessage(WxBaseMsgEntity msg) throws WxException {
 		List<WxMessageHandlerIfc> handlerList = new ArrayList<WxMessageHandlerIfc>();
 		handlerList.addAll(handlers);
 		Collections.sort(handlerList, new WxMessageHandlerComparator());

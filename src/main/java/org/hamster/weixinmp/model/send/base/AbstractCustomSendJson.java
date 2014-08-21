@@ -18,8 +18,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AbstractCustomSendJson {
     private String touser;
-    
-    public String getMsgtype() {
-        throw new RuntimeException("Not implemented");
-    }
+    private String msgtype;
 }

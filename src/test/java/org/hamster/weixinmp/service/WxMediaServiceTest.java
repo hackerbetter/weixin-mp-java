@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.service;
+package org.hamster.weixinmp.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.hamster.weixinmp.constant.WxMediaTypeEnum;
 import org.hamster.weixinmp.dao.entity.item.WxItemImageEntity;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.service.WxAuthService;
-import org.hamster.weixinmp.service.WxMediaService;
-import org.hamster.weixinmp.test.base.AbstractWxServiceTest;
+import org.hamster.weixinmp.base.AbstractWxServiceTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

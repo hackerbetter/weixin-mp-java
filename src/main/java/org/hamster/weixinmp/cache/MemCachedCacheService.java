@@ -2,12 +2,13 @@ package org.hamster.weixinmp.cache;
 
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeoutException;
 
 public class MemCachedCacheService implements CacheService {
-	private static final Logger logger= Logger.getLogger(MemCachedCacheService.class);
+	private static final Logger logger= LoggerFactory.getLogger(MemCachedCacheService.class);
 
 	MemcachedClient memcachedClient;
 	

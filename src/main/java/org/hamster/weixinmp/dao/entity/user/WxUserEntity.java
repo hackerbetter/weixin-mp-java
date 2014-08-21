@@ -68,5 +68,6 @@ public class WxUserEntity extends WxBaseEntity {
 
     @Column(name = "privileges", length = 200, nullable = true)
     private String privileges;
-
+    @Column(name = "state")
+    private Integer state=1;//关注状态 1已关注 0取消关注
 }

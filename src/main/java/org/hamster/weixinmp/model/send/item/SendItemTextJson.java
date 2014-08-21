@@ -16,5 +16,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SendItemTextJson {
-	private String text;
+	private String content;
 }

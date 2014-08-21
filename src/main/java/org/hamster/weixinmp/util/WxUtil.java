@@ -20,11 +20,11 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.hamster.weixinmp.constant.WxMsgRespType;
 import org.hamster.weixinmp.dao.entity.base.WxBaseEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.model.WxRespCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 
 import com.google.gson.Gson;
@@ -36,6 +36,7 @@ import com.google.gson.Gson;
  */
 public class WxUtil {
 
+    private static Logger logger= LoggerFactory.getLogger(WxUtil.class);
 	private WxUtil() {
 	}
 
@@ -51,6 +52,7 @@ public class WxUtil {
 		HttpRequestBase request = null;
 
 		try {
+            logger.info("sendRequest  url:{},method:{},params:{},requestEntity:{}",url,method,params,requestEntity==null?null:requestEntity.getContent());
 			if (HttpMethod.GET.equals(method)) {
 				request = new HttpGet();
 			} else if (HttpMethod.POST.equals(method)) {
@@ -67,10 +69,9 @@ public class WxUtil {
 				}
 			}
 			request.setURI(builder.build());
-
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
-			String respBody = EntityUtils.toString(entity);
+			String respBody = EntityUtils.toString(entity,"utf-8");
 			if (entity != null) {
 				EntityUtils.consume(entity);
 			}

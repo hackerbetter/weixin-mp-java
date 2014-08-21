@@ -3,17 +3,18 @@
  */
 package org.hamster.weixinmp.model.menu;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hamster.weixinmp.annotation.GsonIgnore;
 import org.hamster.weixinmp.dao.entity.menu.WxMenuBtnEntity;
+import org.hamster.weixinmp.gson.MyExclusionStrategy;
 
 /**
  * @author grossopaforever@gmail.com
@@ -26,15 +27,17 @@ import org.hamster.weixinmp.dao.entity.menu.WxMenuBtnEntity;
 public class WxMenuCreateJson {
 
 	private List<WxMenuBtnEntity> button;
+    @GsonIgnore
+    private static Gson gson = null;
+
+    static {
+        if (gson == null) {
+            gson=new GsonBuilder().disableHtmlEscaping().setExclusionStrategies(new MyExclusionStrategy()).create();
+        }
+    }
 
     public String toJson(){
-        try {
-            ObjectMapper om = new ObjectMapper();
-            om.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-            return om.writeValueAsString(this);
-        } catch (IOException e) {
-        }
-        return "";
+        return gson.toJson(this);
     }
 
     public WxMenuCreateJson addButton(WxMenuBtnEntity bu){

@@ -16,15 +16,16 @@ import org.hamster.weixinmp.service.WxUserOAuthService;
 import org.hamster.weixinmp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 
 /**
@@ -43,6 +44,7 @@ public class WxController {
 	private WxMessageService messageService;
     @Autowired
     private WxUserOAuthService wxUserOAuthService;
+
 
     @RequestMapping(value="/getOpenId",method = RequestMethod.GET)
     public @ResponseBody Response getOpenId(@RequestParam("code") String code){
@@ -75,15 +77,26 @@ public class WxController {
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
-	String post(HttpServletRequest request) throws DocumentException, WxException {
-        String requestBody= RequestUtil.getParameterString(request);
-		WxBaseMsgEntity msg = messageService.parseXML(requestBody);
-		log.info("received " + msg.getMsgType() + " message.");
-		
-		WxBaseRespEntity resp = messageService.handleMessage(msg);
-		String result=messageService.parseRespXML(resp).asXML();
-        log.info("响应信息：{}",result);
-        return result;
-	}
+	String post(HttpServletRequest request){
+        try {
+            String uuid= UUID.randomUUID().toString();
+            MDC.put("requestId",uuid.replaceAll("-",""));
+            String requestBody= RequestUtil.getParameterString(request);
+            WxBaseMsgEntity msg = messageService.parseXML(requestBody);
+            log.info("received " + msg.getMsgType() + " message.");
+            WxBaseRespEntity resp = messageService.handleMessage(msg);
+            String result=messageService.parseRespXML(resp).asXML();
+            log.info("响应信息：{}",result);
+            return result;
+        } catch (DocumentException e) {
+            log.error("DocumentException:{}",e);
+            return e.getMessage();
+        } catch (WxException e) {
+            log.error("WxException:{}",e);
+            return e.getMessage();
+        } finally {
+            MDC.remove("requestId");
+        }
+    }
 
 }

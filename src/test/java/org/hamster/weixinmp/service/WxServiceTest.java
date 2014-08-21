@@ -1,12 +1,11 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.service;
+package org.hamster.weixinmp.service;
 
 import org.hamster.weixinmp.dao.repository.msg.WxBaseMsgDao;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.service.WxAuthService;
-import org.hamster.weixinmp.test.base.AbstractServiceTest;
+import org.hamster.weixinmp.base.AbstractServiceTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.hamster.weixinmp.test.service;
+package org.hamster.weixinmp.service;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -8,8 +8,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.hamster.weixinmp.dao.entity.user.WxUserEntity;
-import org.hamster.weixinmp.service.WxUserOAuthService;
-import org.hamster.weixinmp.test.base.AbstractServiceTest;
+import org.hamster.weixinmp.base.AbstractServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

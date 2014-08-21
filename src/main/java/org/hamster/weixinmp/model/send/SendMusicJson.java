@@ -18,12 +18,10 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendMusicJson extends AbstractCustomSendJson {
-    @Override
-    public String getMsgtype() {
-        return "music";
+    public SendMusicJson(){
+        this.setMsgtype("music");
     }
     
 	private SendItemMusicJson music;

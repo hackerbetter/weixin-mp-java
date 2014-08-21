@@ -51,7 +51,7 @@ public class WxMenuBtnEntity extends WxBaseEntity {
 	private WxMenuBtnEntity parentButton;
 	@SerializedName("sub_button")
 	@OneToMany(mappedBy = "parentButton",cascade = {CascadeType.ALL})
-	private List<WxMenuBtnEntity> sub_button;
+	private List<WxMenuBtnEntity> sub_buttons;
 
     public WxMenuBtnEntity(String name) {
         this.name = name;
@@ -70,10 +70,10 @@ public class WxMenuBtnEntity extends WxBaseEntity {
     }
 
     public WxMenuBtnEntity addSubButton(WxMenuBtnEntity button){
-        if(sub_button==null){
-            sub_button=new ArrayList<WxMenuBtnEntity>();
+        if(sub_buttons==null){
+            sub_buttons=new ArrayList<WxMenuBtnEntity>();
         }
-        sub_button.add(button);
+        sub_buttons.add(button);
         return this;
     }
 

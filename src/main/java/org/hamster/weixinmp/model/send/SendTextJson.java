@@ -18,12 +18,10 @@ import org.hamster.weixinmp.model.send.item.SendItemTextJson;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendTextJson extends AbstractCustomSendJson {
-    @Override
-    public String getMsgtype() {
-        return "text";
+    public SendTextJson(){
+        this.setMsgtype("text");
     }
-	private SendItemTextJson content;
+	private SendItemTextJson text;
 }

@@ -18,12 +18,10 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendImageJson extends AbstractCustomSendJson {
-    @Override
-    public String getMsgtype() {
-        return "image";
+    public SendImageJson(){
+        this.setMsgtype("image");
     }
     
 	private SendItemImageJson image;

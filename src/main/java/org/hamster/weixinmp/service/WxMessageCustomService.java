@@ -3,7 +3,7 @@
  */
 package org.hamster.weixinmp.service;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.http.entity.StringEntity;
@@ -78,11 +78,10 @@ public class WxMessageCustomService {
      * @throws WxException
      */
     public String sendText(String accessToken, String toUser, String content) throws WxException {
+        SendItemTextJson itemJson = new SendItemTextJson(content);
         SendTextJson json = new SendTextJson();
         json.setTouser(toUser);
-        SendItemTextJson itemJson = new SendItemTextJson();
-        itemJson.setText(content);
-        json.setContent(itemJson);
+        json.setText(itemJson);
 
         String result = send(accessToken, json);
         return result;
@@ -251,7 +250,7 @@ public class WxMessageCustomService {
      * @return
      * @throws WxException
      */
-    public String sendArticles(String accessToken, String toUser, Iterator<SendItemArticleJson> articles) throws WxException {
+    public String sendArticles(String accessToken, String toUser, Collection<SendItemArticleJson> articles) throws WxException {
         SendItemPicDescJson json = new SendItemPicDescJson();
         json.setTouser(toUser);
         
@@ -270,7 +269,6 @@ public class WxMessageCustomService {
         StringEntity requestEntity = new StringEntity(gson.toJson(json), Charsets.UTF_8);
         String result = WxUtil.sendRequest(config.getCustomSendUrl(), HttpMethod.POST, params, requestEntity,
                 String.class);
-
         storageService.saveJson(json, result);
         return result;
     }

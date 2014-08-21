@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.xml;
+package org.hamster.weixinmp.xml;
 
 import org.dom4j.DocumentException;
 import org.hamster.weixinmp.controller.util.WxXmlUtil;

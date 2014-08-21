@@ -34,6 +34,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WxAuth extends WxBaseEntity implements Serializable{
+    private static final long serialVersionUID = -360337422465622610L;
+
 	@Column(name = "grant_type", length = 50, nullable = false)
 	private String grantType;
 	@Column(name = "appid", length = 100, nullable = false)

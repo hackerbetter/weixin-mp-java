@@ -5,6 +5,7 @@ import org.hamster.weixinmp.constant.*;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
 import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgEventEntity;
+import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class EventHandler implements WxMessageHandlerIfc {
     }
 
     @Override
-    public WxBaseRespEntity handle(WxBaseMsgEntity msg, Map<String, Object> context) {
+    public WxBaseRespEntity handle(WxBaseMsgEntity msg, Map<String, Object> context) throws WxException {
         if(!msg.getMsgType().equals(WxMsgType.EVENT)){
             return null;
         }
@@ -37,10 +38,9 @@ public class EventHandler implements WxMessageHandlerIfc {
                 handler=SpringUtils.getBean(entity.getEventKey());
                 return handler==null?null:handler.execute(entity);
             case SUBSCRIBE://关注公众号事件
+            case UNSUBSCRIBE://取消关注公众号事件
                 handler=SpringUtils.getBean(entity.getEvent());
                 return handler==null?null:handler.execute(entity);
-            case UNSUBSCRIBE://取消关注公众号事件
-                return null;
             case LOCATION://上报地理位置事件
                 return null;
             case SCAN://扫描二维码事件
@@ -57,6 +57,6 @@ public class EventHandler implements WxMessageHandlerIfc {
     }
 
     public interface EventHandlerIfc {
-        public WxBaseRespEntity execute(WxMsgEventEntity msg);
+        public WxBaseRespEntity execute(WxMsgEventEntity msg) throws WxException;
     }
 }

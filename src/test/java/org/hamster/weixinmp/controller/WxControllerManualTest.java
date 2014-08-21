@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hamster.weixinmp.test.controller;
+package org.hamster.weixinmp.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.hamster.weixinmp.test.xml.WxXMLUtilTest;
+import org.hamster.weixinmp.xml.WxXMLUtilTest;
 import org.junit.Ignore;
 import org.junit.Test;
 

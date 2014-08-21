@@ -18,12 +18,10 @@ import org.hamster.weixinmp.model.send.item.SendItemVideoJson;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@NoArgsConstructor
 @AllArgsConstructor
 public class SendVideoJson extends AbstractCustomSendJson {
-    @Override
-    public String getMsgtype() {
-        return "video";
+    public SendVideoJson(){
+        this.setMsgtype("vido");
     }
 	private SendItemVideoJson video;
 }

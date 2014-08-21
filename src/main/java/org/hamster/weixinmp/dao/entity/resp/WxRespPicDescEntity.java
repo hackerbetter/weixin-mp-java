@@ -5,10 +5,7 @@ package org.hamster.weixinmp.dao.entity.resp;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
@@ -32,6 +29,9 @@ import lombok.ToString;
 public class WxRespPicDescEntity extends WxBaseRespEntity {
 
 	@ManyToMany
-	@JoinTable(name = "wx_resp_pic_desc_item")
+	@JoinTable(
+    name = WxConfig.TABLE_PREFIX+"pic_desc_item",
+    joinColumns = @JoinColumn(name="resp_pic_id"),
+    inverseJoinColumns = @JoinColumn(name="item_pic_id"))
 	private List<WxItemPicDescEntity> articles;
 }

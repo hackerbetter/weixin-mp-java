@@ -27,7 +27,7 @@ public class AppDownloadHandler implements EventHandler.EventHandlerIfc{
     public WxBaseRespEntity execute(WxMsgEventEntity msg) {
         List<WxItemPicDescEntity> list=new ArrayList<WxItemPicDescEntity>();
         WxItemPicDescEntity picDescEntity=new WxItemPicDescEntity();
-        picDescEntity.setPicUrl("http://www.boyacai.com/rchlw/recs/images/public/logo.png");
+        picDescEntity.setPicUrl("http://img.boyacai.com/img/adspics/20140821132439.png");
         picDescEntity.setTitle("软件下载");
         picDescEntity.setUrl(config.getAppUrl());
         picDescEntity.setDescription("安装博雅彩客户端，500万大奖等着你");

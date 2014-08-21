@@ -77,6 +77,9 @@ public class WxAuthService {
         return result;
     }
 
+    public WxAuth getAccessToken() throws WxException{
+        return getAccessToken(config.getAppid(),config.getAppsecret());
+    }
 
     /**
      * <p>在开发者首次提交验证申请时，微信服务器将发送GET请求到填写的URL上，并且带上四个参数（signature、timestamp、nonce、echostr）

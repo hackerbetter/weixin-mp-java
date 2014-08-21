@@ -17,6 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hamster.weixinmp.annotation.GsonIgnore;
 
 /**
  * @author grossopaforever@gmail.com
@@ -32,9 +33,11 @@ public abstract class WxBaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Expose(serialize = false, deserialize = false)
 	@SerializedName("_id")
+    @GsonIgnore
 	protected Long id;
 	@Column(name = "created_date")
 	@Expose(serialize = false, deserialize = false)
 	@SerializedName("_createddate")
+    @GsonIgnore
 	protected Date createdDate=new Date();
 }
