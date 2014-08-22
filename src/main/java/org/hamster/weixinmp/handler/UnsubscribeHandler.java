@@ -4,7 +4,7 @@ import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgEventEntity;
 import org.hamster.weixinmp.dao.entity.user.WxUserEntity;
 import org.hamster.weixinmp.dao.repository.user.WxUserDao;
-import org.hamster.weixinmp.protocol.EventHandler;
+import org.hamster.weixinmp.protocol.EventProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 取消关注事件
  */
 @Service("unsubscribe")
-public class UnsubscribeHandler implements EventHandler.EventHandlerIfc{
+public class UnsubscribeHandler implements EventProtocol.EventHandlerIfc{
     private Logger logger= LoggerFactory.getLogger(UnsubscribeHandler.class);
     @Autowired(required = false)
     protected WxUserDao userDao;

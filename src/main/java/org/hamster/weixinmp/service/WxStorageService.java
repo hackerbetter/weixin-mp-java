@@ -18,12 +18,7 @@ import org.hamster.weixinmp.controller.util.WxXmlUtil;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemMusicEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemPicDescEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgCustomEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgEventEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgImageEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgLinkEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgLocEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgTextEntity;
+import org.hamster.weixinmp.dao.entity.msg.*;
 import org.hamster.weixinmp.dao.entity.resp.WxRespMusicEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
@@ -134,6 +129,40 @@ public class WxStorageService {
         }
         msgBaseDao.save(entity);
         return entity;
+    }
+
+    public void saveMsgText(WxMsgTextEntity entity){
+        if(msgTextDao==null){
+            return;
+        }
+        msgTextDao.save(entity);
+    }
+
+    public void saveMsgImg(WxMsgImageEntity entity){
+        if(msgImgDao==null){
+            return;
+        }
+        msgImgDao.save(entity);
+    }
+
+    public void saveMsgVoice(WxMsgVoiceEntity entity){
+        if(msgVoiceDao==null){
+            return;
+        }
+        msgVoiceDao.save(entity);
+    }
+
+    public void saveMsgVideo(WxMsgVideoEntity entity){
+        if(msgVideoDao==null){
+            return;
+        }
+        msgVideoDao.save(entity);
+    }
+    public void saveMsgLink(WxMsgLinkEntity entity){
+        if(msgLinkDao==null){
+            return;
+        }
+        msgLinkDao.save(entity);
     }
 
 	public WxMsgTextEntity saveMsgText(Element ele) throws DocumentException {

@@ -8,7 +8,7 @@ import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
 import org.hamster.weixinmp.dao.entity.user.WxUserEntity;
 import org.hamster.weixinmp.dao.repository.user.WxUserDao;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.protocol.EventHandler;
+import org.hamster.weixinmp.protocol.EventProtocol;
 import org.hamster.weixinmp.service.WxAuthService;
 import org.hamster.weixinmp.service.WxUserService;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ import java.util.Locale;
  * 关注关注事件
  */
 @Service("subscribe")
-public class SubscribeHandler implements EventHandler.EventHandlerIfc{
+public class SubscribeHandler implements EventProtocol.EventHandlerIfc{
     private Logger logger = LoggerFactory.getLogger(SubscribeHandler.class);
     @Autowired(required = false)
     private WxUserDao userDao;

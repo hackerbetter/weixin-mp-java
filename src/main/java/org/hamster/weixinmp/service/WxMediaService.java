@@ -23,6 +23,8 @@ import org.hamster.weixinmp.dao.entity.item.WxItemVideoEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemVoiceEntity;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.util.WxUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WxMediaService {
 
+    private Logger logger = LoggerFactory.getLogger(WxMediaService.class);
     @Autowired
     WxConfig config;
 
@@ -150,8 +153,7 @@ public class WxMediaService {
             builder.addParameter("access_token", accessToken).addParameter("media_id", mediaId);
             return builder.build().toString();
         } catch (URISyntaxException e) {
-            // never happens
-            e.printStackTrace();
+            logger.error("下载多媒体文件异常",e);
             return null;
         }
     }

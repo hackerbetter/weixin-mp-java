@@ -19,7 +19,7 @@ import java.util.Map;
  * 事件推送处理
  */
 @Component
-public class EventHandler implements WxMessageHandlerIfc {
+public class EventProtocol implements ProtocolIfc {
     @Autowired
     WxConfig config;
     @Override

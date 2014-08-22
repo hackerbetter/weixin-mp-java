@@ -6,13 +6,11 @@ import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemPicDescEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgEventEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
-import org.hamster.weixinmp.protocol.EventHandler;
+import org.hamster.weixinmp.protocol.EventProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ import java.util.List;
  * 软件下载事件
  */
 @Service("appdownload")
-public class AppDownloadHandler implements EventHandler.EventHandlerIfc{
+public class AppDownloadHandler implements EventProtocol.EventHandlerIfc{
     @Autowired
     private WxConfig config;
     @Override

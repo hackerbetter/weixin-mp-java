@@ -16,7 +16,7 @@ import org.hamster.weixinmp.exception.WxException;
  * @version Jan 5, 2014
  *
  */
-public interface WxMessageHandlerIfc {
+public interface ProtocolIfc {
 	
 	Collection<WxMsgTypeEnum> listIntetestedMessageType();
 	

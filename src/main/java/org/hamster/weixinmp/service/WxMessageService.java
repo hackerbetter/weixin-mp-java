@@ -27,7 +27,7 @@ import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespVideoEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespVoiceEntity;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.protocol.WxMessageHandlerIfc;
+import org.hamster.weixinmp.protocol.ProtocolIfc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service;
 public class WxMessageService {
 	
 	@Autowired(required=false)
-	List<WxMessageHandlerIfc> handlers;
+	List<ProtocolIfc> handlers;
 
 
 
@@ -83,13 +83,13 @@ public class WxMessageService {
 	}
 	
 	public WxBaseRespEntity handleMessage(WxBaseMsgEntity msg) throws WxException {
-		List<WxMessageHandlerIfc> handlerList = new ArrayList<WxMessageHandlerIfc>();
+		List<ProtocolIfc> handlerList = new ArrayList<ProtocolIfc>();
 		handlerList.addAll(handlers);
 		Collections.sort(handlerList, new WxMessageHandlerComparator());
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		WxBaseRespEntity result = null;
-		for (WxMessageHandlerIfc handler : handlerList) {
+		for (ProtocolIfc handler : handlerList) {
 			result = handler.handle(msg, context);
 		}
 		
@@ -133,8 +133,8 @@ public class WxMessageService {
 	
 }
 
-class WxMessageHandlerComparator implements Comparator<WxMessageHandlerIfc> {
-	public int compare(WxMessageHandlerIfc o1, WxMessageHandlerIfc o2) {
+class WxMessageHandlerComparator implements Comparator<ProtocolIfc> {
+	public int compare(ProtocolIfc o1, ProtocolIfc o2) {
 		if (o1.priority() > o2.priority()) {
 			return 1;
 		} else if (o1.priority() < o2.priority()) {

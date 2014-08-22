@@ -9,7 +9,7 @@ import org.hamster.weixinmp.dao.entity.msg.WxMsgEventEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
 import org.hamster.weixinmp.exception.WxException;
-import org.hamster.weixinmp.protocol.EventHandler;
+import org.hamster.weixinmp.protocol.EventProtocol;
 import org.hamster.weixinmp.util.WxUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by hacker on 2014/8/18.
  */
 @Service("userBind")
-public class UserBindHandler implements EventHandler.EventHandlerIfc{
+public class UserBindHandler implements EventProtocol.EventHandlerIfc{
     private Logger logger = LoggerFactory.getLogger(UserBindHandler.class);
     @Autowired
     private WxConfig config;
