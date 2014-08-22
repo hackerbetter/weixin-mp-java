@@ -28,7 +28,6 @@ public class WxUserServiceTest extends AbstractWxServiceTest {
 	@Autowired
 	WxUserService userService;
     @Autowired
-    @Qualifier("wxUserDao")
     WxUserDao wxUserDao;
 
     @Test

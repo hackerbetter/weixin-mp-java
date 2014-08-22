@@ -24,8 +24,6 @@ import java.util.Date;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public abstract class WxBaseRespEntity extends WxBaseEntity {
-	@Column(name="func_flag", nullable = false)
-	protected Integer funcFlag;
 	@Column(name = "to_user_name", length = WxConfig.COL_LEN_USER_NAME, nullable = false)
 	protected String toUserName;
 	@Column(name = "from_user_name", length = WxConfig.COL_LEN_USER_NAME, nullable = false)

@@ -15,6 +15,7 @@ import org.dom4j.Element;
 import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.constant.WxMsgRespType;
 import org.hamster.weixinmp.controller.util.WxXmlUtil;
+import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemMusicEntity;
 import org.hamster.weixinmp.dao.entity.item.WxItemPicDescEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgCustomEntity;
@@ -36,13 +37,7 @@ import org.hamster.weixinmp.dao.repository.item.WxItemThumbDao;
 import org.hamster.weixinmp.dao.repository.item.WxItemVideoDao;
 import org.hamster.weixinmp.dao.repository.item.WxItemVoiceDao;
 import org.hamster.weixinmp.dao.repository.menu.WxMenuBtnDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgEventDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgImageDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgLinkDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgLocDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgTextDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgVideoDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgVoiceDao;
+import org.hamster.weixinmp.dao.repository.msg.*;
 import org.hamster.weixinmp.dao.repository.resp.WxRespImageDao;
 import org.hamster.weixinmp.dao.repository.resp.WxRespMusicDao;
 import org.hamster.weixinmp.dao.repository.resp.WxRespPicDescDao;
@@ -51,7 +46,6 @@ import org.hamster.weixinmp.dao.repository.resp.WxRespVideoDao;
 import org.hamster.weixinmp.dao.repository.resp.WxRespVoiceDao;
 import org.hamster.weixinmp.dao.repository.user.WxGroupDao;
 import org.hamster.weixinmp.dao.repository.user.WxUserDao;
-import org.hamster.weixinmp.dao.repository.msg.WxMsgCustomDao;
 import org.hamster.weixinmp.model.oauth.WxOAuthTokenJson;
 import org.hamster.weixinmp.model.send.base.AbstractCustomSendJson;
 import org.hamster.weixinmp.model.user.WxUserInfoJson;
@@ -79,7 +73,8 @@ public class WxStorageService {
 	protected WxAuthDao authDao;
 	@Autowired(required = false)
 	protected WxAuthReqDao authReqDao;
-
+    @Autowired(required = false)
+    protected WxBaseMsgDao msgBaseDao;
 	@Autowired(required = false)
 	protected WxMsgTextDao msgTextDao;
 	@Autowired(required = false)
@@ -130,12 +125,16 @@ public class WxStorageService {
 	@Autowired(required = false)
 	protected WxUserDao userDao;
 
-	@Setter
-	protected String token;
-
 	@Autowired(required = false)
 	protected WxConfig wxConfig;
 
+    public WxBaseMsgEntity saveMsgBase(WxBaseMsgEntity entity){
+        if(msgBaseDao==null){
+            return entity;
+        }
+        msgBaseDao.save(entity);
+        return entity;
+    }
 
 	public WxMsgTextEntity saveMsgText(Element ele) throws DocumentException {
 		WxMsgTextEntity msgText = WxXmlUtil.getMsgText(ele);
@@ -207,14 +206,13 @@ public class WxStorageService {
     }
 
 	public WxRespTextEntity createRespText(String content, String fromUserName,
-			String toUserName, Integer funcFlag) {
+			String toUserName) {
 		WxRespTextEntity respText = new WxRespTextEntity();
 		respText.setContent(content);
 		respText.setCreatedDate(new Date());
 		respText.setCreateTime(WxUtil.currentTimeInSec());
 		respText.setFromUserName(fromUserName);
 		respText.setToUserName(toUserName);
-		respText.setFuncFlag(funcFlag);
 		respText.setMsgType(WxMsgRespType.TEXT);
 		if (respTextDao != null) {
 			respTextDao.save(respText);
@@ -226,13 +224,12 @@ public class WxStorageService {
 
 	public WxRespPicDescEntity createRespPicDesc(
 			List<WxItemPicDescEntity> articles, String fromUserName,
-			String toUserName, Integer funcFlag) {
+			String toUserName) {
 		WxRespPicDescEntity respPicDesc = new WxRespPicDescEntity();
 		respPicDesc.setCreatedDate(new Date());
 		respPicDesc.setCreateTime(WxUtil.currentTimeInSec());
 		respPicDesc.setFromUserName(fromUserName);
 		respPicDesc.setToUserName(toUserName);
-		respPicDesc.setFuncFlag(funcFlag);
 		respPicDesc.setMsgType(WxMsgRespType.NEWS);
 		respPicDesc.setArticles(articles);
 		if (respPicDescDao != null) {
@@ -244,13 +241,12 @@ public class WxStorageService {
 	}
 
 	public WxRespPicDescEntity createRespPicDesc2(List<Long> articleIds,
-			String fromUserName, String toUserName, Integer funcFlag) {
+			String fromUserName, String toUserName) {
 		WxRespPicDescEntity respPicDesc = new WxRespPicDescEntity();
 		respPicDesc.setCreatedDate(new Date());
 		respPicDesc.setCreateTime(WxUtil.currentTimeInSec());
 		respPicDesc.setFromUserName(fromUserName);
 		respPicDesc.setToUserName(toUserName);
-		respPicDesc.setFuncFlag(funcFlag);
 		respPicDesc.setMsgType(WxMsgRespType.NEWS);
 		respPicDesc.setArticles(wxItemPicDescDao.findByIdIn(articleIds));
 		if (respPicDescDao != null) {
@@ -262,13 +258,12 @@ public class WxStorageService {
 	}
 
 	public WxRespMusicEntity createRespMusic(String fromUserName,
-			String toUserName, Integer funcFlag, WxItemMusicEntity itemMusic) {
+			String toUserName, WxItemMusicEntity itemMusic) {
 		WxRespMusicEntity respMusic = new WxRespMusicEntity();
 		respMusic.setCreatedDate(new Date());
 		respMusic.setCreateTime(WxUtil.currentTimeInSec());
 		respMusic.setFromUserName(fromUserName);
 		respMusic.setToUserName(toUserName);
-		respMusic.setFuncFlag(funcFlag);
 		respMusic.setMsgType(WxMsgRespType.MUSIC);
 		// respMusic.setMusic(itemMusic);
 		if (respMusicDao != null) {

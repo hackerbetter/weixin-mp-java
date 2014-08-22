@@ -1,5 +1,6 @@
 package org.hamster.weixinmp.protocol;
 
+import com.google.common.collect.Lists;
 import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.constant.*;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
@@ -10,6 +11,7 @@ import org.hamster.weixinmp.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -21,8 +23,8 @@ public class EventHandler implements WxMessageHandlerIfc {
     @Autowired
     WxConfig config;
     @Override
-    public WxMsgTypeEnum[] listIntetestedMessageType() {
-        return new WxMsgTypeEnum[]{WxMsgTypeEnum.EVENT};
+    public Collection<WxMsgTypeEnum> listIntetestedMessageType() {
+        return Lists.newArrayList(WxMsgTypeEnum.EVENT);
     }
 
     @Override

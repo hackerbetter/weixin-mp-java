@@ -469,7 +469,6 @@ public class WxXmlUtil {
 		}
 		ele.addElement("CreateTime").setText(createTime);
 		ele.addElement("MsgType").addCDATA(entity.getMsgType());
-		ele.addElement("FuncFlag").setText(String.valueOf(entity.getFuncFlag()));
 		return ele;
 	}
 

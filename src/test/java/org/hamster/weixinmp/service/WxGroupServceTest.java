@@ -6,6 +6,7 @@ package org.hamster.weixinmp.service;
 import java.util.List;
 
 import org.hamster.weixinmp.dao.entity.user.WxGroupEntity;
+import org.hamster.weixinmp.dao.repository.user.WxGroupDao;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.base.AbstractWxServiceTest;
 import org.junit.Test;
@@ -23,6 +24,9 @@ public class WxGroupServceTest extends AbstractWxServiceTest {
 	
 	@Autowired
 	WxUserGroupService userGroupService;
+
+    @Autowired
+    WxGroupDao groupDao;
 	
 	@Test
 	public void testAll() throws WxException {

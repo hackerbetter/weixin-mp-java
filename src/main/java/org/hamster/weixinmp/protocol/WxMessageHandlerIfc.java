@@ -3,6 +3,7 @@
  */
 package org.hamster.weixinmp.protocol;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.hamster.weixinmp.constant.WxMsgTypeEnum;
@@ -17,7 +18,7 @@ import org.hamster.weixinmp.exception.WxException;
  */
 public interface WxMessageHandlerIfc {
 	
-	WxMsgTypeEnum[] listIntetestedMessageType();
+	Collection<WxMsgTypeEnum> listIntetestedMessageType();
 	
 	WxBaseRespEntity handle(WxBaseMsgEntity msg, Map<String, Object> context) throws WxException;
 	
