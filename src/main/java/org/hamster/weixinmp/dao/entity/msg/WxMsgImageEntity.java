@@ -3,11 +3,7 @@
  */
 package org.hamster.weixinmp.dao.entity.msg;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,7 +27,7 @@ import org.hamster.weixinmp.dao.entity.item.WxItemImageEntity;
 @EqualsAndHashCode(callSuper = true)
 public class WxMsgImageEntity extends WxBaseMsgEntity {
 
-	@ManyToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "image_id")
 	private WxItemImageEntity image;
 }

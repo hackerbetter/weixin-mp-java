@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,8 +50,8 @@ public class MsgProtocol implements ProtocolIfc {
         if(!listIntetestedMessageType().contains(type)){
             return null;
         };
-        WxBaseMsgEntity dbEntity= msgBaseDao.findByMsgId(msg.getMsgId());
-        if(dbEntity!=null){
+        List<WxBaseMsgEntity> list= msgBaseDao.findByMsgId(msg.getMsgId());
+        if(!list.isEmpty()){
             logger.info("该消息{}已经被处理过",msg);
             return null;
         }
@@ -70,10 +72,12 @@ public class MsgProtocol implements ProtocolIfc {
                 storageService.saveMsgLink((WxMsgLinkEntity) msg);
                 break;
             case LOCATION:
+                storageService.saveMsgLoc((WxMsgLocEntity) msg);
                 break;
             default:
                 return null;
         }
+
         return storageService.createRespText("您好,您的消息已收到",msg.getToUserName(),msg.getFromUserName());
     }
 

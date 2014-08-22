@@ -4,9 +4,10 @@
 package org.hamster.weixinmp.dao.repository.msg;
 
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
-import org.hamster.weixinmp.dao.entity.msg.WxMsgTextEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author grossopaforever@gmail.com
@@ -16,5 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WxBaseMsgDao extends PagingAndSortingRepository<WxBaseMsgEntity, Long> {
 
-    public WxBaseMsgEntity findByMsgId(Long msgId);
+    public List<WxBaseMsgEntity> findByMsgId(Long msgId);
 }

@@ -164,7 +164,12 @@ public class WxStorageService {
         }
         msgLinkDao.save(entity);
     }
-
+    public void saveMsgLoc(WxMsgLocEntity entity){
+        if(msgLocDao==null){
+            return;
+        }
+        msgLocDao.save(entity);
+    }
 	public WxMsgTextEntity saveMsgText(Element ele) throws DocumentException {
 		WxMsgTextEntity msgText = WxXmlUtil.getMsgText(ele);
 		if (msgTextDao != null) {
