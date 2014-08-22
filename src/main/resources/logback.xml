@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<Encoding>UTF-8</Encoding>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-20(%d{yyyy-MM-dd HH:mm:ss.SSS}) %X{requestId} %X{Mac}
+				%-5level %logger{80}.%method - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="weixin"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.path}weixin.log</File>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%-20(%d{MM-dd HH:mm:ss.SSS}) %X{requestId} %-5level%msg%n
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}weixin.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="weixinError"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.path}weixin.error</File>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+		<encoder>
+			<pattern>%-20(%d{MM-dd HH:mm:ss.SSS}) %X{requestId} %-5level%msg%n
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}weixin.error.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="org.apache" level="ERROR" />
+	<logger name="org.hibernate.SQL" level="ERROR" />
+	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="net.sf" level="ERROR" />
+
+	<root level="INFO">
+		<appender-ref ref="${logback.appender}" />
+		<appender-ref ref="${logback.appender}Error" />
+	</root>
+</configuration>
