@@ -29,21 +29,23 @@ public class WxMenuServiceTest extends AbstractWxServiceTest {
 	public void testAll() throws WxException {
         WxMenuCreateJson menu =new WxMenuCreateJson().addButton(
                         new WxMenuBtnEntity("购买彩票")
-                                .addSubButton(new WxMenuBtnEntity("view", "购彩大厅","http://testiphone.boyacai.com/index.html?r=wx",null))
-                                .addSubButton(new WxMenuBtnEntity("view", "合买大厅","http://testiphone.boyacai.com/html/tog.html?r=wx", null))
-                                .addSubButton(new WxMenuBtnEntity("view", "彩票推荐","http://testiphone.boyacai.com/html/more/newslist.html?r=wx", null))
-                                .addSubButton(new WxMenuBtnEntity("view","客户端下载", "http://testiphone.boyacai.com/html/common/download.html",null))
+                                .addSubButton(new WxMenuBtnEntity("view", "购彩大厅","http://m.boyacai.com/index.html?r=wx",null))
+                                .addSubButton(new WxMenuBtnEntity("view", "合买大厅","http://m.boyacai.com/html/tog.html?r=wx", null))
+                                .addSubButton(new WxMenuBtnEntity("view", "开奖公告", "http://m.boyacai.com/html/lottery.html?r=wx", null))
+                                .addSubButton(new WxMenuBtnEntity("view", "彩票推荐","http://m.boyacai.com/html/more/newslist.html?r=wx", null))
+                                .addSubButton(new WxMenuBtnEntity("view","客户端下载", "http://m.boyacai.com/html/common/download.html",null))
                 ).addButton(
                 new WxMenuBtnEntity("账户资金")
-                        .addSubButton(new WxMenuBtnEntity("view","账户提现","http://testiphone.boyacai.com/html/user/withdraw.html?r=wx",null))
-                        .addSubButton(new WxMenuBtnEntity("view","账户明细","http://testiphone.boyacai.com/html/user/account.html?r=wx",null))
-                        .addSubButton(new WxMenuBtnEntity("view","资金详情","http://testiphone.boyacai.com/html/user/remainder.html?r=wx",null))
+                        .addSubButton(new WxMenuBtnEntity("view","账户提现","http://m.boyacai.com/html/user/withdraw.html?r=wx",null))
+                        .addSubButton(new WxMenuBtnEntity("view","账户明细","http://m.boyacai.com/html/user/account.html?r=wx",null))
+                        .addSubButton(new WxMenuBtnEntity("view","资金详情","http://m.boyacai.com/html/user/remainder.html?r=wx",null))
         ).addButton(
                 new WxMenuBtnEntity("我的彩票")
-                        .addSubButton(new WxMenuBtnEntity("view", "中奖查询","http://testiphone.boyacai.com/html/user/lotterylist.html?r=wx", null))
-                        .addSubButton(new WxMenuBtnEntity("view", "开奖公告", "http://testiphone.boyacai.com/html/lottery.html?r=wx", null))
-                        .addSubButton(new WxMenuBtnEntity("view", "投注记录","http://testiphone.boyacai.com/html/user/cathecticlist.html?r=wx", null))
-                        .addSubButton(new WxMenuBtnEntity("view", "优惠活动", "http://testiphone.boyacai.com/html/more/active.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "中奖查询","http://m.boyacai.com/html/user/lotterylist.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "投注记录","http://m.boyacai.com/html/user/cathecticlist.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "我的合买","http://m.boyacai.com/html/user/toglist.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "追号记录","http://m.boyacai.com/html/user/chaslist.html?r=wx", null))
+                        .addSubButton(new WxMenuBtnEntity("view", "优惠活动","http://m.boyacai.com/html/more/active.html?r=wx", null))
         );
 
 		menuService.menuCreate(accessToken,menu);//菜单创建

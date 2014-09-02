@@ -9,6 +9,7 @@ package org.hamster.weixinmp.constant;
  * 
  */
 public class WxMsgRespType {
+    public static final String TRANSFER = "transfer_customer_service";
 	public static final String TEXT = "text";
 	public static final String IMAGE = "image";
 	public static final String VOICE = "voice";

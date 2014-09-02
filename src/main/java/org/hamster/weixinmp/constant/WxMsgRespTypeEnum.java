@@ -9,6 +9,7 @@ package org.hamster.weixinmp.constant;
  *
  */
 public enum WxMsgRespTypeEnum {
+    TRANSFER(WxMsgRespType.TRANSFER),
 	TEXT(WxMsgRespType.TEXT), IMAGE(WxMsgRespType.IMAGE), MUSIC(WxMsgRespType.MUSIC), 
 	NEWS(WxMsgRespType.NEWS), VIDEO(WxMsgRespType.VIDEO), VOICE(WxMsgRespType.VOICE);
 	/**

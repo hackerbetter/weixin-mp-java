@@ -26,12 +26,7 @@ import org.hamster.weixinmp.dao.entity.msg.WxMsgLocEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgTextEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgVideoEntity;
 import org.hamster.weixinmp.dao.entity.msg.WxMsgVoiceEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespImageEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespMusicEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespVideoEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespVoiceEntity;
+import org.hamster.weixinmp.dao.entity.resp.*;
 import org.hamster.weixinmp.util.WxUtil;
 
 
@@ -245,6 +240,10 @@ public class WxXmlUtil {
 		}
 		return result;
 	}
+
+    public static Element getRespTransforXML(WxRespTransforEntity respTransfor) {
+        return respEntityFactory(respTransfor);
+    }
 	
 	/**
 	 * <code>

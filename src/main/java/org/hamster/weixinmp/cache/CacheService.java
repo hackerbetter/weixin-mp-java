@@ -2,7 +2,11 @@ package org.hamster.weixinmp.cache;
 
 public interface CacheService {
 
-	public abstract <T> void set(String key, T t);
+    public abstract <T> boolean add(String key, T t);
+
+    public abstract <T> boolean add(String key, Integer exp, T t);
+
+    public abstract <T> void set(String key, T t);
 
 	public abstract <T> void set(String key, Integer exp, T t);
 

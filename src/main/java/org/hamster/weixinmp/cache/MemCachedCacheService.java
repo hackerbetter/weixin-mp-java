@@ -16,6 +16,27 @@ public class MemCachedCacheService implements CacheService {
 		this.memcachedClient = memcachedClient;
 	}
 
+    public <T> boolean add(String key,T t) {
+        return add(key,null,t);
+    }
+    public <T> boolean add(String key, Integer exp, T t) {
+        if (exp == null) {
+            exp = 0;
+        }
+        try {
+            return memcachedClient.add(key, exp, t);
+        } catch (TimeoutException e) {
+            logger.error(e.getMessage());
+            return false;
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage());
+            return false;
+        } catch (MemcachedException e) {
+            logger.error(e.getMessage());
+            return false;
+        }
+    }
+
 	public <T> void  set(String key, T t) {
 		try {
 			memcachedClient.set(key, 0, t);

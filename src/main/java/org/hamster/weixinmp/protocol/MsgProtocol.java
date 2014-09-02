@@ -1,6 +1,7 @@
 package org.hamster.weixinmp.protocol;
 
 import com.google.common.collect.Lists;
+import org.hamster.weixinmp.cache.CacheService;
 import org.hamster.weixinmp.config.WxConfig;
 import org.hamster.weixinmp.constant.WxMsgTypeEnum;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
@@ -13,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +32,10 @@ public class MsgProtocol implements ProtocolIfc {
     WxStorageService storageService;
     @Autowired
     protected WxBaseMsgDao msgBaseDao;
+    @Autowired
+    private transient CacheService cacheService;
+
+
     @Override
     public Collection<WxMsgTypeEnum> listIntetestedMessageType() {
         return Lists.newArrayList(
@@ -47,42 +51,34 @@ public class MsgProtocol implements ProtocolIfc {
     @Override
     public WxBaseRespEntity handle(WxBaseMsgEntity msg, Map<String, Object> context) throws WxException {
         WxMsgTypeEnum type=WxMsgTypeEnum.inst(msg.getMsgType());
+        WxBaseRespEntity result=null;
         if(!listIntetestedMessageType().contains(type)){
-            return null;
+            return (WxBaseRespEntity) context.get("result");
         };
-        List<WxBaseMsgEntity> list= msgBaseDao.findByMsgId(msg.getMsgId());
-        if(!list.isEmpty()){
-            logger.info("该消息{}已经被处理过",msg);
-            return null;
-        }
-        switch (type){
-            case TEXT:
-                storageService.saveMsgText((WxMsgTextEntity)msg);
-                break;
-            case IMAGE:
-                storageService.saveMsgImg((WxMsgImageEntity) msg);
-                break;
-            case VOICE:
-                storageService.saveMsgVoice((WxMsgVoiceEntity) msg);
-                break;
-            case VIDEO:
-                storageService.saveMsgVideo((WxMsgVideoEntity) msg);
-                break;
-            case LINK:
-                storageService.saveMsgLink((WxMsgLinkEntity) msg);
-                break;
-            case LOCATION:
-                storageService.saveMsgLoc((WxMsgLocEntity) msg);
-                break;
-            default:
-                return null;
-        }
-
-        return storageService.createRespText("您好,您的消息已收到",msg.getToUserName(),msg.getFromUserName());
+        String lockKey="weixin_msgprotocol_findByMsgId";
+        lockThread(lockKey);
+        result= storageService.createTransforCustomer(msg.getToUserName(), msg.getFromUserName());
+        context.put("result",result);
+        unLockThread(lockKey);
+        return result;
     }
 
     @Override
     public Integer priority() {
         return 2;
+    }
+
+    public void lockThread(String key){
+        while(!cacheService.add(key,1)){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                logger.error("线程休眠",e);
+            }
+        }
+    }
+
+    public void unLockThread(String key){
+        cacheService.delete(key);
     }
 }

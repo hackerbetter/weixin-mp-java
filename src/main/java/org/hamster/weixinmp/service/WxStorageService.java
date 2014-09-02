@@ -6,8 +6,6 @@ package org.hamster.weixinmp.service;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Setter;
-
 
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.DocumentException;
@@ -21,6 +19,7 @@ import org.hamster.weixinmp.dao.entity.item.WxItemPicDescEntity;
 import org.hamster.weixinmp.dao.entity.msg.*;
 import org.hamster.weixinmp.dao.entity.resp.WxRespMusicEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
+import org.hamster.weixinmp.dao.entity.resp.WxRespTransforEntity;
 import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
 import org.hamster.weixinmp.dao.entity.user.WxUserEntity;
 import org.hamster.weixinmp.dao.repository.auth.WxAuthDao;
@@ -237,6 +236,14 @@ public class WxStorageService {
         entity.setResult(result);
         msgCustomDao.save(entity);
         return entity;
+    }
+
+    public WxRespTransforEntity createTransforCustomer(String fromUserName,String toUserName) {
+        WxRespTransforEntity transforEntity = new WxRespTransforEntity();
+        transforEntity.setFromUserName(fromUserName);
+        transforEntity.setToUserName(toUserName);
+        transforEntity.setMsgType(WxMsgRespType.TRANSFER);
+        return transforEntity;
     }
 
 	public WxRespTextEntity createRespText(String content, String fromUserName,

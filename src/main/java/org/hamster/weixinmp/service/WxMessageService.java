@@ -20,12 +20,7 @@ import org.hamster.weixinmp.constant.WxMsgTypeEnum;
 import org.hamster.weixinmp.controller.util.WxXmlUtil;
 import org.hamster.weixinmp.dao.entity.base.WxBaseMsgEntity;
 import org.hamster.weixinmp.dao.entity.base.WxBaseRespEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespImageEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespMusicEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespPicDescEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespTextEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespVideoEntity;
-import org.hamster.weixinmp.dao.entity.resp.WxRespVoiceEntity;
+import org.hamster.weixinmp.dao.entity.resp.*;
 import org.hamster.weixinmp.exception.WxException;
 import org.hamster.weixinmp.protocol.ProtocolIfc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +97,8 @@ public class WxMessageService {
 	public Element parseRespXML(WxBaseRespEntity resp) throws DocumentException {
 		WxMsgRespTypeEnum type = WxMsgRespTypeEnum.inst(resp.getMsgType());
 		switch (type) {
+        case TRANSFER:
+            return WxXmlUtil.getRespTransforXML((WxRespTransforEntity) resp);
 		case IMAGE:
 			return WxXmlUtil.getRespImage((WxRespImageEntity) resp);
 		case MUSIC:
