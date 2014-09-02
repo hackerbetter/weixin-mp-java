@@ -18,4 +18,8 @@ public interface CacheService {
 
 	public abstract void flushAll();
 
+    public abstract void lockThread(String key);
+
+    public abstract void unLockThread(String key);
+
 }

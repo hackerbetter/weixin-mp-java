@@ -117,4 +117,18 @@ public class MemCachedCacheService implements CacheService {
 			logger.error(e.getMessage());
 		}
 	}
+
+    public void lockThread(String key){
+        while(!add(key,1)){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                logger.error("线程休眠",e);
+            }
+        }
+    }
+
+    public void unLockThread(String key){
+        delete(key);
+    }
 }

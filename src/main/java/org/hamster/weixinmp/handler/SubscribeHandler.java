@@ -34,6 +34,7 @@ public class SubscribeHandler implements EventProtocol.EventHandlerIfc{
     private WxUserService userService;
     @Autowired
     private WxAuthService authService;
+
     @Override
     @Transactional
     public WxBaseRespEntity execute(WxMsgEventEntity msg) throws WxException {
@@ -63,9 +64,13 @@ public class SubscribeHandler implements EventProtocol.EventHandlerIfc{
             String accessToken=authService.getAccessToken().getAccessToken();
             String lang= Locale.getDefault().getLanguage();//本地语言
             user = userService.remoteUserInfo(accessToken,openId,lang);
+            userDao.save(user);
+            return;
         }
-        user.setState(1);//重新关注
-        userDao.save(user);
+        if(user.getState()!=1){
+            user.setState(1);//重新关注
+            userDao.save(user);
+        }
     }
 
 }
